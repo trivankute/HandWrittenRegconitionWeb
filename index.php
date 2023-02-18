@@ -17,7 +17,7 @@ $conn = $db->connect();
     <section class="vh-100">
         <div class="container h-100 d-flex flex-column align-items-center justify-content-center">
             <h4 id="text" style="color:green; display:none;">Add successfully</h4>
-            <h4 id="text" style="color:green;">You must be patient, only 200 training datas</h4>
+            <h4 id="text" style="color:green;">You must be patient, only 1000 training datas</h4>
             <h4 id="text" style="">Try it few times if its not correct</h4>
             <canvas id="canvas"></canvas>
             <div class="d-flex mt-2 align-items-center justify-content-center">
@@ -33,7 +33,9 @@ $conn = $db->connect();
             </div>
         </div>
     </section>
-    <script src="index.js"></script>
+    <script src="./bundle.js">
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

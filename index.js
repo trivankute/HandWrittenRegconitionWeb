@@ -1,4 +1,3 @@
-
 const BG_COLOR = "#231f20"
 const wallColor = "#aaa"
 let BG_SIZE = (window.innerWidth < 440) ? 250 : 600
@@ -70,40 +69,199 @@ else {
         canvas.removeEventListener('mousemove', handleDrawing)
     })
 }
+function findMinTop(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (arr2d[i][j] === 1) {
+                return i
+            }
+        }
+    }
+}
+function findMinBottom(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (arr2d[arr2d.length - 1 - i][j] === 1) {
+                return i
+            }
+        }
+    }
+}
+function findMinLeft(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (arr2d[j][i] === 1) {
+                return i
+            }
+        }
+    }
+}
+function findMinRight(arr2d) {
+    for (let i = arr2d.length - 1; i >= 0; i--) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (arr2d[j][i] === 1) {
+                return 19 - i
+            }
+        }
+    }
+}
+function moveArr2dLeft(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (j === arr2d[i].length - 1) {
+                arr2d[i][j] = 0
+            }
+            else {
+                arr2d[i][j] = arr2d[i][j + 1]
+            }
+        }
+    }
+}
+function moveArr2dRight(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = arr2d[i].length - 1; j >= 0; j--) {
+            if (j === 0) {
+                arr2d[i][j] = 0
+            }
+            else {
+                arr2d[i][j] = arr2d[i][j - 1]
+            }
+        }
+    }
+}
+function moveArr2dUp(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (i === arr2d.length - 1) {
+                arr2d[i][j] = 0
+            }
+            else {
+                arr2d[i][j] = arr2d[i + 1][j]
+            }
+        }
+    }
+}
+function moveArr2dDown(arr2d) {
+    for (let i = arr2d.length - 1; i >= 0; i--) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (i === 0) {
+                arr2d[i][j] = 0
+            }
+            else {
+                arr2d[i][j] = arr2d[i - 1][j]
+            }
+        }
+    }
+}
+
+// find list of variations
+function findVariations(arr2d) {
+    let variations = []
+    // move arr2d to top until top=0
+    while (findMinTop(arr2d) > 0) {
+        moveArr2dUp(arr2d)
+    }
+    // move arr2d to left until left=0
+    while (findMinLeft(arr2d) > 0) {
+        moveArr2dLeft(arr2d)
+    }
+    // add arr2d to variations from up to down and left to right
+    let arrInit = JSON.parse(JSON.stringify(arr2d))
+    while (findMinRight(arrInit) >= 0) {
+        arr2d = JSON.parse(JSON.stringify(arrInit))
+        while (findMinBottom(arr2d) >= 0) {
+            variations.push(JSON.parse(JSON.stringify(arr2d)))
+            if (findMinBottom(arr2d) > 0)
+                moveArr2dDown(arr2d)
+            else {
+                break;
+            }
+        }
+        if (findMinRight(arrInit) > 0)
+            moveArr2dRight(arrInit)
+        else {
+            break;
+        }
+    }
+    return variations
+}
 addButton.addEventListener('click', () => {
     // propmt
     let output = prompt("Enter the value of the drawing correctly, please huhu")
+    output = parseInt(output)
     // console.log type of output
-    if (output === "0" || output === "1" || output === "2" || output === "3" || output === "4" || output === "5" || output === "6" || output === "7" || output === "8" || output === "9") {
-        let newArray = []
-        for (let i = 0; i < array.length; i++) {
-            for (let j = 0; j < array[i].length; j++) {
-                newArray.push(array[i][j])
+    if (output === 0 || output === 1 || output === 2 || output === 3 || output === 4 || output === 5 || output === 6 || output === 7 || output === 8 || output === 9) {
+        let variationsArray = findVariations(array)
+        for (let k = 0; k < variationsArray.length; k++) {
+            array = variationsArray[k]
+            let newArray = []
+            for (let i = 0; i < array.length; i++) {
+                for (let j = 0; j < array[i].length; j++) {
+                    newArray.push(array[i][j])
+                }
             }
+            if(output===0)
+            {
+                output={"zero":1}
+            }
+            else if(output===1)
+            {
+                output={"one":1}
+            }
+            else if(output===2)
+            {
+                output={"two":1}
+            }
+            else if(output===3)
+            {
+                output={"three":1}
+            }
+            else if(output===4)
+            {
+                output={"four":1}
+            }
+            else if(output===5)
+            {
+                output={"five":1}
+            }
+            else if(output===6)
+            {
+                output={"six":1}
+            }
+            else if(output===7)
+            {
+                output={"seven":1}
+            }
+            else if(output===8)
+            {
+                output={"eight":1}
+            }
+            else if(output===9)
+            {
+                output={"nine":1}
+            }
+            
+            var formdata = new FormData();
+            formdata.append("input", JSON.stringify(newArray));
+            formdata.append("output", JSON.stringify(output));
+            var requestOptions = {
+                method: 'POST',
+                body: formdata,
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost/handwrittenRegconition/addtrainingdata.php", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result);
+                    // make text block in 5s
+                    text.style.display = "block"
+                    setTimeout(() => {
+                        text.style.display = "none"
+                    }, 2000)
+                })
+                .catch(error => console.log('error', error));
         }
-        let temp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        temp[9 - parseInt(output)] = 1;
-        var formdata = new FormData();
-        formdata.append("input", JSON.stringify(newArray));
-        formdata.append("output", JSON.stringify(temp));
-
-        var requestOptions = {
-            method: 'POST',
-            body: formdata,
-            redirect: 'follow'
-        };
-
-        fetch("http://localhost/handwrittenRegconition/addtrainingdata.php", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                console.log(result);
-                // make text block in 5s
-                text.style.display = "block"
-                setTimeout(() => {
-                    text.style.display = "none"
-                }, 2000)
-            })
-            .catch(error => console.log('error', error));
     }
 })
 
@@ -148,397 +306,483 @@ async function getTrainingData() {
         .then(response => { return response.text(); })
         .then(result => { trainingData = JSON.parse(result); })
         .catch(error => console.log('error', error));
-
-    // json.parse all input and output
+    // // json.parse all input and output
     for (let i = 0; i < trainingData.length; i++) {
         trainingData[i].input = JSON.parse(trainingData[i].input)
         trainingData[i].output = JSON.parse(trainingData[i].output)
     }
+    console.log((trainingData))
     return trainingData
 
 
 }
 
-// /////////////////////////////////////////////////////////////////////
-class Network {
-    constructor(layers = null) {
-        if (layers) {
+////////////////////////////////////////////////////////////// for brain.js
+// const brain = require("brain.js");
+// const config = {
+//     hiddenLayers: [30], // array of ints for the sizes of the hidden layers in the network
+// };
+// const net = new brain.NeuralNetwork(config);
+// async function allTheWork() {
+//     let trainingData = await getTrainingData()
+//     await net.train(trainingData,{iterations:1000})
+//     const networkState = JSON.stringify(net);
+//     // add the network state to database addtrainingdata.php
+//                 var formdata = new FormData();
+//                 formdata.append("network", networkState);
 
-            this.arrA = new Array(layers.length);
-            for (let i = 0; i < this.arrA.length; i++) {
-                this.arrA[i] = new Array(layers[i]);
-                for (let j = 0; j < this.arrA[i].length; j++) {
-                    this.arrA[i][j] = "nope";
-                }
-            }
+//                 var requestOptions = {
+//                     method: 'POST',
+//                     body: formdata,
+//                     redirect: 'follow'
+//                 };
 
-            this.arrWeights = new Array(layers.length);
-            this.arrWeights[0] = new Array(0);
-            for (let i = 1; i < this.arrWeights.length; i++) {
-                this.arrWeights[i] = new Array(layers[i - 1]);
-                for (let j = 0; j < this.arrWeights[i].length; j++) {
-                    this.arrWeights[i][j] = new Array(layers[i]);
-                    for (let k = 0; k < this.arrWeights[i][j].length; k++) {
-                        this.arrWeights[i][j][k] = Math.random();
-                    }
-                }
-            }
+//                 fetch("http://localhost/handwrittenRegconition/addnetwork.php", requestOptions)
+//                     .then(response => response.text())
+//                     .then(result => {console.log(result);
+//                         let numberRight = 0;
+//                         for(let i = 0; i < trainingData.length; i++){
+//                             let output = net.run(trainingData[i].input);
+//                             let keys = Object.keys(output);
+//                             let values = Object.values(output);
+//                             let max = Math.max(...values);
+//                             let index = values.indexOf(max);
+//                             let key = keys[index];
+//                             if(key === Object.keys(trainingData[i].output)[0]){
+//                                 numberRight++;
+//                             }
+//                         }
+//                         console.log(`${numberRight}/${trainingData.length}`);
+//                     })
+//                     .catch(error => console.log('error', error));
 
-            this.arrBiases = new Array(layers.length);
-            this.arrBiases[0] = new Array(0);
-            for (let i = 1; i < this.arrBiases.length; i++) {
-                this.arrBiases[i] = new Array(layers[i]);
-                for (let j = 0; j < this.arrBiases[i].length; j++) {
-                    {
-                        this.arrBiases[i][j] = Math.random();
-                    }
-                }
-            }
+// }
+// allTheWork()
+///////////////////////////////////////////// load and run
+// const brain = require("brain.js");
+// const config = {
+//     binaryThresh: 0.5,
+//     hiddenLayers: [30], // array of ints for the sizes of the hidden layers in the network
+//     activation: 'sigmoid', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+//     leakyReluAlpha: 0.01, // supported for activation type 'leaky-relu',
+//     learningRate: 0.01, // global learning rate, useful when training using streams
+// };
+// let trainedNet = new brain.NeuralNetwork(config);
+// // load from file
+// let data
+// var requestOptions = {
+//     method: 'GET',
+//     redirect: 'follow'
+// };
 
-            this.arrE = new Array(layers.length);
-            this.arrE[0] = new Array(0);
-            for (let i = 1; i < this.arrE.length; i++) {
-                this.arrE[i] = new Array(layers[i]);
-                for (let j = 0; j < this.arrE[i].length; j++) {
-                    this.arrE[i][j] = 0;
-                }
-            }
-            this.arrDeltaWeights = JSON.parse(JSON.stringify(this.arrWeights))
-            this.arrDeltaBiases = JSON.parse(JSON.stringify(this.arrBiases))
-            this.arrOutputsTraining = [];
-        }
-        else {
-            this.forLoad()
-        }
-        this.mode = "";
-    }
-    changeMode(mode) {
-        this.mode = mode;
-    }
-    loadInputTraining(inputs) {
-        for (let i = 0; i < this.arrA[0].length; i++)
-            this.arrA[0][i] = inputs[i];
-    }
-    loadInputTesting(inputs) {
-        for (let i = 0; i < this.arrA[0].length; i++)
-            this.arrA[0][i] = inputs[i];
-    }
-    loadOutputTraining(outputs) {
-        this.arrOutputsTraining = outputs;
-    }
-    sigmoid(value) {
-        return 1 / (1 + Math.exp(-value));
-    }
-    sigmoid_derivative(value) {
-        return this.sigmoid(value) * (1 - this.sigmoid(value));
-    }
-    feedForward() {
-        let z = 0;
-        for (let i = 1; i < this.arrA.length; i++) {
-            for (let j = 0; j < this.arrA[i].length; j++) {
-                z = this.findZ(i, j);
-                this.arrA[i][j] = this.sigmoid(z);
-            }
-        }
-    }
-    costFunction() {
-        let sum = 0;
-        for (let i = 0; i < this.arrA[this.arrA.length - 1].length; i++) {
-            sum += Math.pow(this.arrOutputsTraining[i] - (this.arrA[this.arrA.length - 1][i]), 2);
-        }
-        return sum / (2 * this.arrOutputsTraining.length);
-    }
-    training(inputs, outputs, eta) {
-        if (this.mode === "training") {
-            this.loadInputTraining(inputs);
-            this.loadOutputTraining(outputs);
-            this.feedForward();
-            this.loadE();
-            this.cost_derivative_weights();
-            this.cost_derivative_biases();
-            this.backpropagation(eta);
-        }
-    }
-    findZ(layer, index) {
-        let sum = 0;
-        for (let i = 0; i < this.arrA[layer - 1].length; i++) {
-            sum += this.arrA[layer - 1][i] * this.arrWeights[layer][i][index];
-        }
-        sum += this.arrBiases[layer][index];
-        return sum;
-    }
-    loadE() {
-        let z = 0;
-        for (let i = this.arrE.length - 1; i >= 0; i--) {
-            for (let j = 0; j < this.arrE[i].length; j++) {
-                z = this.findZ(i, j)
-                if (i === this.arrE.length - 1) {
-                    this.arrE[i][j] = (this.arrOutputsTraining[j] - this.sigmoid(z)) * this.sigmoid_derivative(z) / this.arrOutputsTraining.length;
-                }
-                else {
-                    let multiply = 0;
-                    for (let k = 0; k < this.arrE[i + 1].length; k++) {
-                        multiply += this.arrE[i + 1][k] * this.arrWeights[i + 1][j][k];
-                    }
-                    this.arrE[i][j] = multiply * this.sigmoid_derivative(z);
-                }
-            }
-        }
-    }
-    cost_derivative_weights() {
-        if (this.mode === "training") {
-            // fill out this.arrDeltaWeights
-            for (let i = this.arrDeltaWeights.length - 1; i > 0; i--) {
-                for (let j = 0; j < this.arrDeltaWeights[i].length; j++) {
-                    for (let k = 0; k < this.arrDeltaWeights[i][j].length; k++) {
-                        this.arrDeltaWeights[i][j][k] = this.arrA[i - 1][j] * this.arrE[i][k];
-                    }
-                }
-            }
-        }
-    }
-    cost_derivative_biases() {
-        // fill out this.arrDeltaBiases
-        for (let i = this.arrDeltaBiases.length - 1; i > 0; i--) {
-            for (let j = 0; j < this.arrDeltaBiases[i].length; j++) {
-                this.arrDeltaBiases[i][j] = this.arrE[i][j];
-            }
-        }
+// fetch("http://localhost/handwrittenRegconition/getnetwork.php", requestOptions)
+//     .then(response => response.text())
+//     .then(result => JSON.parse(result))
+//     .then(result => {
+//         result = JSON.parse(result)
+//         trainedNet.fromJSON(result)
+//     })
+//     .catch(error => console.log('error', error));
 
-    }
-    backpropagation(eta) {
-        if (this.mode === "training") {
-            // update weights
-            for (let i = this.arrWeights.length - 1; i > 0; i--) {
-                for (let j = 0; j < this.arrWeights[i].length; j++) {
-                    for (let k = 0; k < this.arrWeights[i][j].length; k++) {
-                        this.arrWeights[i][j][k] += (eta * this.arrDeltaWeights[i][j][k]);
-                    }
-                }
-            }
-            // update biases
-            for (let i = this.arrBiases.length - 1; i > 0; i--) {
-                for (let j = 0; j < this.arrBiases[i].length; j++) {
-                    this.arrBiases[i][j] += (eta * this.arrDeltaBiases[i][j]);
-                }
-            }
-        }
-    }
-    test(inputs) {
-        if (this.mode === "testing") {
-            this.loadInputTesting(inputs);
-            this.feedForward();
-            // find maximum position
-            let max = 0;
-            let maxPos = 0;
-            for (let i = 0; i < this.arrA[this.arrA.length - 1].length; i++) {
-                if (this.arrA[this.arrA.length - 1][i] > max) {
-                    max = this.arrA[this.arrA.length - 1][i];
-                    maxPos = 9 - i;
-                }
-            }
-            if (maxPos === 0) {
-                alert(` Minh Phát AI đoán là: 0 với xác suất: ${max*100} %`);
-            }
-            else if (maxPos === 1) {
-                alert(` Minh Phát AI đoán là: 1 với xác suất: ${max*100} %`);
-            }
-            else if (maxPos === 2) {
-                alert(` Minh Phát AI đoán là: 2 với xác suất: ${max*100} %`);
-            }
-            else if (maxPos === 3) {
-                alert(` Minh Phát AI đoán là: 3 với xác suất: ${max*100} %`);
-            }
-            else if (maxPos === 4) {
-                alert(` Minh Phát AI đoán là: 4 với xác suất: ${max*100} %`);
-            }
-            else if (maxPos === 5) {
-                alert(` Minh Phát AI đoán là: 5 với xác suất: ${max*100} %`);
-            }
-            else if (maxPos === 6) {
-                alert(` Minh Phát AI đoán là: 6 với xác suất: ${max*100} %`);
-            }
-            else if (maxPos === 7) {
-                alert(` Minh Phát AI đoán là: 7 với xác suất: ${max*100} %`);
-            }
-            else if (maxPos === 8) {
-                alert(` Minh Phát AI đoán là: 8 với xác suất: ${max*100} %`);
-            }
-            else if (maxPos === 9) {
-                alert(` Minh Phát AI đoán là: 9 với xác suất: ${max*100} %`);
-            }
-        }
-    }
-    forTestPerformance(valueChecking, output) {
-        this.loadInputTesting(valueChecking);
-        this.feedForward();
-        // find maximum position
-        let max = 0;
-        let maxPos = 0;
-        for (let i = 0; i < this.arrA[this.arrA.length - 1].length; i++) {
-            if (this.arrA[this.arrA.length - 1][i] > max) {
-                max = this.arrA[this.arrA.length - 1][i];
-                maxPos = i;
-            }
-        }
-        if (output[maxPos] === 1) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    testPerformance(testData) {
-        let correct = 0;
-        let total = testData.length
-        for (let i = 0; i < testData.length; i++) {
-            let input = testData[i]['input'];
-            let output = testData[i]['output'];
-            if (this.forTestPerformance(input, output)) {
-                correct++;
-            }
-        }
-        console.log(`${correct}/${total}`);
-        return `${correct}/${total}`
-    }
-    SGD(training_data, epochs, mini_batch_size, eta, testData = null) {
-        if (this.mode === "training") {
-            // shuffle training data
-            for (let i = training_data.length - 1; i > 0; i--) {
-                let j = Math.floor(Math.random() * (i + 1));
-                [training_data[i], training_data[j]] = [training_data[j], training_data[i]];
-            }
-            // split training data into mini batches
-            let mini_batches = [];
-            for (let i = 0; i < training_data.length; i += mini_batch_size) {
-                mini_batches.push(training_data.slice(i, i + mini_batch_size));
-            }
-            // train
-            for (let i = 0; i < epochs; i++) {
-                for (let j = 0; j < mini_batches.length; j++) {
-                    this.updateMiniBatch(mini_batches[j], eta);
-                }
-                // print cost
-                if ((i + 1) % 10 === 0) {
-                    if (testData && (i + 1) === epochs) {
-                        let result = this.testPerformance(testData);
-                        console.log("Epoch: ", i + 1, " Cost: ", this.costFunction(), result);
-                        if (result === `${testData.length}/${testData.length}`) {
-                            console.log("Đã đạt độ chính xác 100%!");
-                            break;
-                        }
-                    }
-                    else
-                        console.log("Epoch: ", i + 1, " Cost: ", this.costFunction());
+// function handleCheck() {
+//     let newArray = []
+//     for (let i = 0; i < array.length; i++) {
+//         for (let j = 0; j < array[i].length; j++) {
+//             newArray.push(array[i][j])
+//         }
+//     }
+//     let output = trainedNet.run(newArray);
+//     let keys = Object.keys(output);
+//     let values = Object.values(output);
+//     let max = Math.max(...values);
+//     let index = values.indexOf(max);
+//     let key = keys[index];
+//     alert(`Minh Phat doan so la: "${key}`)
+// }
+// checkButton.addEventListener("click", handleCheck)
 
-                }
-            }
-        }
-    }
-    updateMiniBatch(mini_batch, eta) {
-        if (this.mode === "training") {
-            // reset delta weights and biases
-            for (let i = 0; i < this.arrDeltaWeights.length; i++) {
-                for (let j = 0; j < this.arrDeltaWeights[i].length; j++) {
-                    for (let k = 0; k < this.arrDeltaWeights[i][j].length; k++) {
-                        this.arrDeltaWeights[i][j][k] = 0;
-                    }
-                }
-            }
-            for (let i = 0; i < this.arrDeltaBiases.length; i++) {
-                for (let j = 0; j < this.arrDeltaBiases[i].length; j++) {
-                    this.arrDeltaBiases[i][j] = 0;
-                }
-            }
-            // update delta weights and biases
-            for (let i = 0; i < mini_batch.length; i++) {
-                this.loadInputTraining(mini_batch[i]['input']);
-                this.feedForward();
-                this.loadOutputTraining(mini_batch[i]['output']);
-                this.loadE();
-                for (let i = this.arrDeltaWeights.length - 1; i > 0; i--) {
-                    for (let j = 0; j < this.arrDeltaWeights[i].length; j++) {
-                        for (let k = 0; k < this.arrDeltaWeights[i][j].length; k++) {
-                            this.arrDeltaWeights[i][j][k] += this.arrA[i - 1][j] * this.arrE[i][k];
-                        }
-                    }
-                }
-                for (let i = this.arrDeltaBiases.length - 1; i > 0; i--) {
-                    for (let j = 0; j < this.arrDeltaBiases[i].length; j++) {
-                        this.arrDeltaBiases[i][j] += this.arrE[i][j];
-                    }
-                }
-            }
-            // update weights and biases
-            for (let i = 0; i < this.arrWeights.length; i++) {
-                for (let j = 0; j < this.arrWeights[i].length; j++) {
-                    for (let k = 0; k < this.arrWeights[i][j].length; k++) {
-                        this.arrWeights[i][j][k] += (eta / mini_batch.length) * this.arrDeltaWeights[i][j][k];
-                    }
-                }
-            }
-            for (let i = 0; i < this.arrBiases.length; i++) {
-                for (let j = 0; j < this.arrBiases[i].length; j++) {
-                    this.arrBiases[i][j] += (eta / mini_batch.length) * this.arrDeltaBiases[i][j];
-                }
-            }
-        }
-    }
-    forSave() {
-        // save to file
-        const network = JSON.stringify({
-            arrA: this.arrA,
-            arrWeights: this.arrWeights,
-            arrBiases: this.arrBiases,
-            arrE: this.arrE,
-            arrDeltaWeights: this.arrDeltaWeights,
-            arrDeltaBiases: this.arrDeltaBiases
-        })
-        var formdata = new FormData();
-        formdata.append("network", network);
 
-        var requestOptions = {
-            method: 'POST',
-            body: formdata,
-            redirect: 'follow'
-        };
+// // ///////////////////////////////////////////////////////////////////// basic neural network coded by myself
+// class Network {
+//     constructor(layers = null) {
+//         if (layers) {
 
-        fetch("http://localhost/handwrittenRegconition/addnetwork.php", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-    }
-    async forLoad() {
-        // load from file
-        let data
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
+//             this.arrA = new Array(layers.length);
+//             for (let i = 0; i < this.arrA.length; i++) {
+//                 this.arrA[i] = new Array(layers[i]);
+//                 for (let j = 0; j < this.arrA[i].length; j++) {
+//                     this.arrA[i][j] = "nope";
+//                 }
+//             }
 
-        await fetch("http://localhost/handwrittenRegconition/getnetwork.php", requestOptions)
-            .then(response => response.text())
-            .then(result => {data=JSON.parse(result); data=JSON.parse(data)
-                this.arrA = data.arrA;
-                this.arrWeights = data.arrWeights;
-                this.arrBiases = data.arrBiases;
-                this.arrE = data.arrE;
-                this.arrDeltaWeights = data.arrDeltaWeights;
-                this.arrDeltaBiases = data.arrDeltaBiases;
-            })
-            .catch(error => console.log('error', error));
-        }
-    console() {
-        console.log("A: ", this.arrA);
-        console.log("Weights: ", this.arrWeights);
-        console.log("Biases: ", this.arrBiases);
-        console.log("Cost: ", test.costFunction());
-        console.log("E: ", this.arrE);
-        console.log("DeltaWeights: ", this.arrDeltaWeights);
-        console.log("DeltaBiases: ", this.arrDeltaBiases);
-        // console.log("\n")
-    }
-}
+//             this.arrWeights = new Array(layers.length);
+//             this.arrWeights[0] = new Array(0);
+//             for (let i = 1; i < this.arrWeights.length; i++) {
+//                 this.arrWeights[i] = new Array(layers[i - 1]);
+//                 for (let j = 0; j < this.arrWeights[i].length; j++) {
+//                     this.arrWeights[i][j] = new Array(layers[i]);
+//                     for (let k = 0; k < this.arrWeights[i][j].length; k++) {
+//                         this.arrWeights[i][j][k] = Math.random();
+//                     }
+//                 }
+//             }
+
+//             this.arrBiases = new Array(layers.length);
+//             this.arrBiases[0] = new Array(0);
+//             for (let i = 1; i < this.arrBiases.length; i++) {
+//                 this.arrBiases[i] = new Array(layers[i]);
+//                 for (let j = 0; j < this.arrBiases[i].length; j++) {
+//                     {
+//                         this.arrBiases[i][j] = Math.random();
+//                     }
+//                 }
+//             }
+
+//             this.arrE = new Array(layers.length);
+//             this.arrE[0] = new Array(0);
+//             for (let i = 1; i < this.arrE.length; i++) {
+//                 this.arrE[i] = new Array(layers[i]);
+//                 for (let j = 0; j < this.arrE[i].length; j++) {
+//                     this.arrE[i][j] = 0;
+//                 }
+//             }
+//             this.arrDeltaWeights = JSON.parse(JSON.stringify(this.arrWeights))
+//             this.arrDeltaBiases = JSON.parse(JSON.stringify(this.arrBiases))
+//             this.arrOutputsTraining = [];
+//         }
+//         else {
+//             this.forLoad()
+//         }
+//         this.mode = "";
+//     }
+//     changeMode(mode) {
+//         this.mode = mode;
+//     }
+//     loadInputTraining(inputs) {
+//         for (let i = 0; i < this.arrA[0].length; i++)
+//             this.arrA[0][i] = inputs[i];
+//     }
+//     loadInputTesting(inputs) {
+//         for (let i = 0; i < this.arrA[0].length; i++)
+//             this.arrA[0][i] = inputs[i];
+//     }
+//     loadOutputTraining(outputs) {
+//         this.arrOutputsTraining = outputs;
+//     }
+//     sigmoid(value) {
+//         return 1 / (1 + Math.exp(-value));
+//     }
+//     sigmoid_derivative(value) {
+//         return this.sigmoid(value) * (1 - this.sigmoid(value));
+//     }
+//     feedForward() {
+//         let z = 0;
+//         for (let i = 1; i < this.arrA.length; i++) {
+//             for (let j = 0; j < this.arrA[i].length; j++) {
+//                 z = this.findZ(i, j);
+//                 this.arrA[i][j] = this.sigmoid(z);
+//             }
+//         }
+//     }
+//     costFunction() {
+//         let sum = 0;
+//         for (let i = 0; i < this.arrA[this.arrA.length - 1].length; i++) {
+//             sum += Math.pow(this.arrOutputsTraining[i] - (this.arrA[this.arrA.length - 1][i]), 2);
+//         }
+//         return sum / (2 * this.arrOutputsTraining.length);
+//     }
+//     training(inputs, outputs, eta) {
+//         if (this.mode === "training") {
+//             this.loadInputTraining(inputs);
+//             this.loadOutputTraining(outputs);
+//             this.feedForward();
+//             this.loadE();
+//             this.cost_derivative_weights();
+//             this.cost_derivative_biases();
+//             this.backpropagation(eta);
+//         }
+//     }
+//     findZ(layer, index) {
+//         let sum = 0;
+//         for (let i = 0; i < this.arrA[layer - 1].length; i++) {
+//             sum += this.arrA[layer - 1][i] * this.arrWeights[layer][i][index];
+//         }
+//         sum += this.arrBiases[layer][index];
+//         return sum;
+//     }
+//     loadE() {
+//         let z = 0;
+//         for (let i = this.arrE.length - 1; i >= 0; i--) {
+//             for (let j = 0; j < this.arrE[i].length; j++) {
+//                 z = this.findZ(i, j)
+//                 if (i === this.arrE.length - 1) {
+//                     this.arrE[i][j] = (this.arrOutputsTraining[j] - this.sigmoid(z)) * this.sigmoid_derivative(z) / this.arrOutputsTraining.length;
+//                 }
+//                 else {
+//                     let multiply = 0;
+//                     for (let k = 0; k < this.arrE[i + 1].length; k++) {
+//                         multiply += this.arrE[i + 1][k] * this.arrWeights[i + 1][j][k];
+//                     }
+//                     this.arrE[i][j] = multiply * this.sigmoid_derivative(z);
+//                 }
+//             }
+//         }
+//     }
+//     cost_derivative_weights() {
+//         if (this.mode === "training") {
+//             // fill out this.arrDeltaWeights
+//             for (let i = this.arrDeltaWeights.length - 1; i > 0; i--) {
+//                 for (let j = 0; j < this.arrDeltaWeights[i].length; j++) {
+//                     for (let k = 0; k < this.arrDeltaWeights[i][j].length; k++) {
+//                         this.arrDeltaWeights[i][j][k] = this.arrA[i - 1][j] * this.arrE[i][k];
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     cost_derivative_biases() {
+//         // fill out this.arrDeltaBiases
+//         for (let i = this.arrDeltaBiases.length - 1; i > 0; i--) {
+//             for (let j = 0; j < this.arrDeltaBiases[i].length; j++) {
+//                 this.arrDeltaBiases[i][j] = this.arrE[i][j];
+//             }
+//         }
+
+//     }
+//     backpropagation(eta) {
+//         if (this.mode === "training") {
+//             // update weights
+//             for (let i = this.arrWeights.length - 1; i > 0; i--) {
+//                 for (let j = 0; j < this.arrWeights[i].length; j++) {
+//                     for (let k = 0; k < this.arrWeights[i][j].length; k++) {
+//                         this.arrWeights[i][j][k] += (eta * this.arrDeltaWeights[i][j][k]);
+//                     }
+//                 }
+//             }
+//             // update biases
+//             for (let i = this.arrBiases.length - 1; i > 0; i--) {
+//                 for (let j = 0; j < this.arrBiases[i].length; j++) {
+//                     this.arrBiases[i][j] += (eta * this.arrDeltaBiases[i][j]);
+//                 }
+//             }
+//         }
+//     }
+//     test(inputs) {
+//         if (this.mode === "testing") {
+//             this.loadInputTesting(inputs);
+//             this.feedForward();
+//             // find maximum position
+//             let max = 0;
+//             let maxPos = 0;
+//             for (let i = 0; i < this.arrA[this.arrA.length - 1].length; i++) {
+//                 if (this.arrA[this.arrA.length - 1][i] > max) {
+//                     max = this.arrA[this.arrA.length - 1][i];
+//                     maxPos = 9 - i;
+//                 }
+//             }
+//             if (maxPos === 0) {
+//                 alert(` Minh Phát AI đoán là: 0 với xác suất: ${max * 100} %`);
+//             }
+//             else if (maxPos === 1) {
+//                 alert(` Minh Phát AI đoán là: 1 với xác suất: ${max * 100} %`);
+//             }
+//             else if (maxPos === 2) {
+//                 alert(` Minh Phát AI đoán là: 2 với xác suất: ${max * 100} %`);
+//             }
+//             else if (maxPos === 3) {
+//                 alert(` Minh Phát AI đoán là: 3 với xác suất: ${max * 100} %`);
+//             }
+//             else if (maxPos === 4) {
+//                 alert(` Minh Phát AI đoán là: 4 với xác suất: ${max * 100} %`);
+//             }
+//             else if (maxPos === 5) {
+//                 alert(` Minh Phát AI đoán là: 5 với xác suất: ${max * 100} %`);
+//             }
+//             else if (maxPos === 6) {
+//                 alert(` Minh Phát AI đoán là: 6 với xác suất: ${max * 100} %`);
+//             }
+//             else if (maxPos === 7) {
+//                 alert(` Minh Phát AI đoán là: 7 với xác suất: ${max * 100} %`);
+//             }
+//             else if (maxPos === 8) {
+//                 alert(` Minh Phát AI đoán là: 8 với xác suất: ${max * 100} %`);
+//             }
+//             else if (maxPos === 9) {
+//                 alert(` Minh Phát AI đoán là: 9 với xác suất: ${max * 100} %`);
+//             }
+//         }
+//     }
+//     forTestPerformance(valueChecking, output) {
+//         this.loadInputTesting(valueChecking);
+//         this.feedForward();
+//         // find maximum position
+//         let max = 0;
+//         let maxPos = 0;
+//         for (let i = 0; i < this.arrA[this.arrA.length - 1].length; i++) {
+//             if (this.arrA[this.arrA.length - 1][i] > max) {
+//                 max = this.arrA[this.arrA.length - 1][i];
+//                 maxPos = i;
+//             }
+//         }
+//         if (output[maxPos] === 1) {
+//             return true;
+//         }
+//         else {
+//             return false;
+//         }
+//     }
+//     testPerformance(testData) {
+//         let correct = 0;
+//         let total = testData.length
+//         for (let i = 0; i < testData.length; i++) {
+//             let input = testData[i]['input'];
+//             let output = testData[i]['output'];
+//             if (this.forTestPerformance(input, output)) {
+//                 correct++;
+//             }
+//         }
+//         console.log(`${correct}/${total}`);
+//         return `${correct}/${total}`
+//     }
+//     SGD(training_data, epochs, mini_batch_size, eta, testData = null) {
+//         if (this.mode === "training") {
+//             // shuffle training data
+//             for (let i = training_data.length - 1; i > 0; i--) {
+//                 let j = Math.floor(Math.random() * (i + 1));
+//                 [training_data[i], training_data[j]] = [training_data[j], training_data[i]];
+//             }
+//             // split training data into mini batches
+//             let mini_batches = [];
+//             for (let i = 0; i < training_data.length; i += mini_batch_size) {
+//                 mini_batches.push(training_data.slice(i, i + mini_batch_size));
+//             }
+//             // train
+//             for (let i = 0; i < epochs; i++) {
+//                 for (let j = 0; j < mini_batches.length; j++) {
+//                     this.updateMiniBatch(mini_batches[j], eta);
+//                 }
+//                 // print cost
+//                 if ((i + 1) % 10 === 0) {
+//                     if (testData && (i + 1) === epochs) {
+//                         let result = this.testPerformance(testData);
+//                         console.log("Epoch: ", i + 1, " Cost: ", this.costFunction(), result);
+//                         if (result === `${testData.length}/${testData.length}`) {
+//                             console.log("Đã đạt độ chính xác 100%!");
+//                             break;
+//                         }
+//                     }
+//                     else
+//                         console.log("Epoch: ", i + 1, " Cost: ", this.costFunction());
+
+//                 }
+//             }
+//         }
+//     }
+//     updateMiniBatch(mini_batch, eta) {
+//         if (this.mode === "training") {
+//             // reset delta weights and biases
+//             for (let i = 0; i < this.arrDeltaWeights.length; i++) {
+//                 for (let j = 0; j < this.arrDeltaWeights[i].length; j++) {
+//                     for (let k = 0; k < this.arrDeltaWeights[i][j].length; k++) {
+//                         this.arrDeltaWeights[i][j][k] = 0;
+//                     }
+//                 }
+//             }
+//             for (let i = 0; i < this.arrDeltaBiases.length; i++) {
+//                 for (let j = 0; j < this.arrDeltaBiases[i].length; j++) {
+//                     this.arrDeltaBiases[i][j] = 0;
+//                 }
+//             }
+//             // update delta weights and biases
+//             for (let i = 0; i < mini_batch.length; i++) {
+//                 this.loadInputTraining(mini_batch[i]['input']);
+//                 this.feedForward();
+//                 this.loadOutputTraining(mini_batch[i]['output']);
+//                 this.loadE();
+//                 for (let i = this.arrDeltaWeights.length - 1; i > 0; i--) {
+//                     for (let j = 0; j < this.arrDeltaWeights[i].length; j++) {
+//                         for (let k = 0; k < this.arrDeltaWeights[i][j].length; k++) {
+//                             this.arrDeltaWeights[i][j][k] += this.arrA[i - 1][j] * this.arrE[i][k];
+//                         }
+//                     }
+//                 }
+//                 for (let i = this.arrDeltaBiases.length - 1; i > 0; i--) {
+//                     for (let j = 0; j < this.arrDeltaBiases[i].length; j++) {
+//                         this.arrDeltaBiases[i][j] += this.arrE[i][j];
+//                     }
+//                 }
+//             }
+//             // update weights and biases
+//             for (let i = 0; i < this.arrWeights.length; i++) {
+//                 for (let j = 0; j < this.arrWeights[i].length; j++) {
+//                     for (let k = 0; k < this.arrWeights[i][j].length; k++) {
+//                         this.arrWeights[i][j][k] += (eta / mini_batch.length) * this.arrDeltaWeights[i][j][k];
+//                     }
+//                 }
+//             }
+//             for (let i = 0; i < this.arrBiases.length; i++) {
+//                 for (let j = 0; j < this.arrBiases[i].length; j++) {
+//                     this.arrBiases[i][j] += (eta / mini_batch.length) * this.arrDeltaBiases[i][j];
+//                 }
+//             }
+//         }
+//     }
+//     forSave() {
+//         // save to file
+//         const network = JSON.stringify({
+//             arrA: this.arrA,
+//             arrWeights: this.arrWeights,
+//             arrBiases: this.arrBiases,
+//             arrE: this.arrE,
+//             arrDeltaWeights: this.arrDeltaWeights,
+//             arrDeltaBiases: this.arrDeltaBiases
+//         })
+//         var formdata = new FormData();
+//         formdata.append("network", network);
+
+//         var requestOptions = {
+//             method: 'POST',
+//             body: formdata,
+//             redirect: 'follow'
+//         };
+
+//         fetch("http://localhost/handwrittenRegconition/addnetwork.php", requestOptions)
+//             .then(response => response.text())
+//             .then(result => console.log(result))
+//             .catch(error => console.log('error', error));
+//     }
+//     async forLoad() {
+//         // load from file
+//         let data
+//         var requestOptions = {
+//             method: 'GET',
+//             redirect: 'follow'
+//         };
+
+//         await fetch("http://localhost/handwrittenRegconition/getnetwork.php", requestOptions)
+//             .then(response => response.text())
+//             .then(result => {
+//                 data = JSON.parse(result); data = JSON.parse(data)
+//                 this.arrA = data.arrA;
+//                 this.arrWeights = data.arrWeights;
+//                 this.arrBiases = data.arrBiases;
+//                 this.arrE = data.arrE;
+//                 this.arrDeltaWeights = data.arrDeltaWeights;
+//                 this.arrDeltaBiases = data.arrDeltaBiases;
+//             })
+//             .catch(error => console.log('error', error));
+//     }
+//     console() {
+//         console.log("A: ", this.arrA);
+//         console.log("Weights: ", this.arrWeights);
+//         console.log("Biases: ", this.arrBiases);
+//         console.log("Cost: ", test.costFunction());
+//         console.log("E: ", this.arrE);
+//         console.log("DeltaWeights: ", this.arrDeltaWeights);
+//         console.log("DeltaBiases: ", this.arrDeltaBiases);
+//         // console.log("\n")
+//     }
+// }
 
 // ////////////////////////////////////////////////////// for normal full-batch gradient descent training
 // var test = new Network([1, 30, 10]);
@@ -606,27 +850,27 @@ class Network {
 // test.forSave();
 
 // ////////////////////////////////////////////////////// for real digit test
-var test = new Network([400, 12, 10]);
-async function letgo() {
-    let trainingData = await getTrainingData();
-    test.changeMode("training");
-    test.SGD(trainingData, 10000, 10, 10, trainingData);
-    test.console()
-    test.forSave();
-}
-letgo()
-// async function letgoAlreadyTrain() {
-//     await test.forLoad();
+// var test = new Network([400, 5, 10]);
+// // async function letgo() {
+// //     let trainingData = await getTrainingData();
+// //     test.changeMode("training");
+// //     test.SGD(trainingData, 1000, 10, 10, trainingData);
+// //     test.console()
+// //     test.forSave();
+// // }
+// // letgo()
+// // async function letgoAlreadyTrain() {
+// //     await test.forLoad();
+// // }
+// // letgoAlreadyTrain();
+// function handleCheck() {
+//     test.changeMode("testing");
+//     let newArray = []
+//     for (let i = 0; i < array.length; i++) {
+//         for (let j = 0; j < array[i].length; j++) {
+//             newArray.push(array[i][j])
+//         }
+//     }
+//     test.test(newArray);
 // }
-// letgoAlreadyTrain();
-function handleCheck() {
-    test.changeMode("testing");
-    let newArray = []
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array[i].length; j++) {
-            newArray.push(array[i][j])
-        }
-    }
-    test.test(newArray);
-}
-checkButton.addEventListener("click", handleCheck)
+// checkButton.addEventListener("click", handleCheck)
