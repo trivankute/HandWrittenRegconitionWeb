@@ -1,10 +1,6 @@
 {
+  "type": "module",
   "dependencies": {
-    "brain.js": "^1.6.1",
-    "browserify-fs": "^1.0.0",
-    "fs": "^0.0.1-security",
-    "node-fetch": "^3.3.0",
-    "node-html-parser": "^6.1.4",
-    "uniq": "^1.0.1"
+    "brain.js": "^1.6.1"
   }
 }

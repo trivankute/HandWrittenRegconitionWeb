@@ -69,201 +69,201 @@ else {
         canvas.removeEventListener('mousemove', handleDrawing)
     })
 }
-function findMinTop(arr2d) {
-    for (let i = 0; i < arr2d.length; i++) {
-        for (let j = 0; j < arr2d[i].length; j++) {
-            if (arr2d[i][j] === 1) {
-                return i
-            }
-        }
-    }
-}
-function findMinBottom(arr2d) {
-    for (let i = 0; i < arr2d.length; i++) {
-        for (let j = 0; j < arr2d[i].length; j++) {
-            if (arr2d[arr2d.length - 1 - i][j] === 1) {
-                return i
-            }
-        }
-    }
-}
-function findMinLeft(arr2d) {
-    for (let i = 0; i < arr2d.length; i++) {
-        for (let j = 0; j < arr2d[i].length; j++) {
-            if (arr2d[j][i] === 1) {
-                return i
-            }
-        }
-    }
-}
-function findMinRight(arr2d) {
-    for (let i = arr2d.length - 1; i >= 0; i--) {
-        for (let j = 0; j < arr2d[i].length; j++) {
-            if (arr2d[j][i] === 1) {
-                return 19 - i
-            }
-        }
-    }
-}
-function moveArr2dLeft(arr2d) {
-    for (let i = 0; i < arr2d.length; i++) {
-        for (let j = 0; j < arr2d[i].length; j++) {
-            if (j === arr2d[i].length - 1) {
-                arr2d[i][j] = 0
-            }
-            else {
-                arr2d[i][j] = arr2d[i][j + 1]
-            }
-        }
-    }
-}
-function moveArr2dRight(arr2d) {
-    for (let i = 0; i < arr2d.length; i++) {
-        for (let j = arr2d[i].length - 1; j >= 0; j--) {
-            if (j === 0) {
-                arr2d[i][j] = 0
-            }
-            else {
-                arr2d[i][j] = arr2d[i][j - 1]
-            }
-        }
-    }
-}
-function moveArr2dUp(arr2d) {
-    for (let i = 0; i < arr2d.length; i++) {
-        for (let j = 0; j < arr2d[i].length; j++) {
-            if (i === arr2d.length - 1) {
-                arr2d[i][j] = 0
-            }
-            else {
-                arr2d[i][j] = arr2d[i + 1][j]
-            }
-        }
-    }
-}
-function moveArr2dDown(arr2d) {
-    for (let i = arr2d.length - 1; i >= 0; i--) {
-        for (let j = 0; j < arr2d[i].length; j++) {
-            if (i === 0) {
-                arr2d[i][j] = 0
-            }
-            else {
-                arr2d[i][j] = arr2d[i - 1][j]
-            }
-        }
-    }
-}
+// function findMinTop(arr2d) {
+//     for (let i = 0; i < arr2d.length; i++) {
+//         for (let j = 0; j < arr2d[i].length; j++) {
+//             if (arr2d[i][j] === 1) {
+//                 return i
+//             }
+//         }
+//     }
+// }
+// function findMinBottom(arr2d) {
+//     for (let i = 0; i < arr2d.length; i++) {
+//         for (let j = 0; j < arr2d[i].length; j++) {
+//             if (arr2d[arr2d.length - 1 - i][j] === 1) {
+//                 return i
+//             }
+//         }
+//     }
+// }
+// function findMinLeft(arr2d) {
+//     for (let i = 0; i < arr2d.length; i++) {
+//         for (let j = 0; j < arr2d[i].length; j++) {
+//             if (arr2d[j][i] === 1) {
+//                 return i
+//             }
+//         }
+//     }
+// }
+// function findMinRight(arr2d) {
+//     for (let i = arr2d.length - 1; i >= 0; i--) {
+//         for (let j = 0; j < arr2d[i].length; j++) {
+//             if (arr2d[j][i] === 1) {
+//                 return 19 - i
+//             }
+//         }
+//     }
+// }
+// function moveArr2dLeft(arr2d) {
+//     for (let i = 0; i < arr2d.length; i++) {
+//         for (let j = 0; j < arr2d[i].length; j++) {
+//             if (j === arr2d[i].length - 1) {
+//                 arr2d[i][j] = 0
+//             }
+//             else {
+//                 arr2d[i][j] = arr2d[i][j + 1]
+//             }
+//         }
+//     }
+// }
+// function moveArr2dRight(arr2d) {
+//     for (let i = 0; i < arr2d.length; i++) {
+//         for (let j = arr2d[i].length - 1; j >= 0; j--) {
+//             if (j === 0) {
+//                 arr2d[i][j] = 0
+//             }
+//             else {
+//                 arr2d[i][j] = arr2d[i][j - 1]
+//             }
+//         }
+//     }
+// }
+// function moveArr2dUp(arr2d) {
+//     for (let i = 0; i < arr2d.length; i++) {
+//         for (let j = 0; j < arr2d[i].length; j++) {
+//             if (i === arr2d.length - 1) {
+//                 arr2d[i][j] = 0
+//             }
+//             else {
+//                 arr2d[i][j] = arr2d[i + 1][j]
+//             }
+//         }
+//     }
+// }
+// function moveArr2dDown(arr2d) {
+//     for (let i = arr2d.length - 1; i >= 0; i--) {
+//         for (let j = 0; j < arr2d[i].length; j++) {
+//             if (i === 0) {
+//                 arr2d[i][j] = 0
+//             }
+//             else {
+//                 arr2d[i][j] = arr2d[i - 1][j]
+//             }
+//         }
+//     }
+// }
 
-// find list of variations
-function findVariations(arr2d) {
-    let variations = []
-    // move arr2d to top until top=0
-    while (findMinTop(arr2d) > 0) {
-        moveArr2dUp(arr2d)
-    }
-    // move arr2d to left until left=0
-    while (findMinLeft(arr2d) > 0) {
-        moveArr2dLeft(arr2d)
-    }
-    // add arr2d to variations from up to down and left to right
-    let arrInit = JSON.parse(JSON.stringify(arr2d))
-    while (findMinRight(arrInit) >= 0) {
-        arr2d = JSON.parse(JSON.stringify(arrInit))
-        while (findMinBottom(arr2d) >= 0) {
-            variations.push(JSON.parse(JSON.stringify(arr2d)))
-            if (findMinBottom(arr2d) > 0)
-                moveArr2dDown(arr2d)
-            else {
-                break;
-            }
-        }
-        if (findMinRight(arrInit) > 0)
-            moveArr2dRight(arrInit)
-        else {
-            break;
-        }
-    }
-    return variations
-}
-addButton.addEventListener('click', () => {
-    // propmt
-    let output = prompt("Enter the value of the drawing correctly, please huhu")
-    output = parseInt(output)
-    // console.log type of output
-    if (output === 0 || output === 1 || output === 2 || output === 3 || output === 4 || output === 5 || output === 6 || output === 7 || output === 8 || output === 9) {
-        let variationsArray = findVariations(array)
-        for (let k = 0; k < variationsArray.length; k++) {
-            array = variationsArray[k]
-            let newArray = []
-            for (let i = 0; i < array.length; i++) {
-                for (let j = 0; j < array[i].length; j++) {
-                    newArray.push(array[i][j])
-                }
-            }
-            if(output===0)
-            {
-                output={"zero":1}
-            }
-            else if(output===1)
-            {
-                output={"one":1}
-            }
-            else if(output===2)
-            {
-                output={"two":1}
-            }
-            else if(output===3)
-            {
-                output={"three":1}
-            }
-            else if(output===4)
-            {
-                output={"four":1}
-            }
-            else if(output===5)
-            {
-                output={"five":1}
-            }
-            else if(output===6)
-            {
-                output={"six":1}
-            }
-            else if(output===7)
-            {
-                output={"seven":1}
-            }
-            else if(output===8)
-            {
-                output={"eight":1}
-            }
-            else if(output===9)
-            {
-                output={"nine":1}
-            }
+// // find list of variations
+// function findVariations(arr2d) {
+//     let variations = []
+//     // move arr2d to top until top=0
+//     while (findMinTop(arr2d) > 0) {
+//         moveArr2dUp(arr2d)
+//     }
+//     // move arr2d to left until left=0
+//     while (findMinLeft(arr2d) > 0) {
+//         moveArr2dLeft(arr2d)
+//     }
+//     // add arr2d to variations from up to down and left to right
+//     let arrInit = JSON.parse(JSON.stringify(arr2d))
+//     while (findMinRight(arrInit) >= 0) {
+//         arr2d = JSON.parse(JSON.stringify(arrInit))
+//         while (findMinBottom(arr2d) >= 0) {
+//             variations.push(JSON.parse(JSON.stringify(arr2d)))
+//             if (findMinBottom(arr2d) > 0)
+//                 moveArr2dDown(arr2d)
+//             else {
+//                 break;
+//             }
+//         }
+//         if (findMinRight(arrInit) > 0)
+//             moveArr2dRight(arrInit)
+//         else {
+//             break;
+//         }
+//     }
+//     return variations
+// }
+// addButton.addEventListener('click', () => {
+//     // propmt
+//     let output = prompt("Enter the value of the drawing correctly, please huhu")
+//     output = parseInt(output)
+//     // console.log type of output
+//     if (output === 0 || output === 1 || output === 2 || output === 3 || output === 4 || output === 5 || output === 6 || output === 7 || output === 8 || output === 9) {
+//         let variationsArray = findVariations(array)
+//         for (let k = 0; k < variationsArray.length; k++) {
+//             array = variationsArray[k]
+//             let newArray = []
+//             for (let i = 0; i < array.length; i++) {
+//                 for (let j = 0; j < array[i].length; j++) {
+//                     newArray.push(array[i][j])
+//                 }
+//             }
+//             if(output===0)
+//             {
+//                 output={"zero":1}
+//             }
+//             else if(output===1)
+//             {
+//                 output={"one":1}
+//             }
+//             else if(output===2)
+//             {
+//                 output={"two":1}
+//             }
+//             else if(output===3)
+//             {
+//                 output={"three":1}
+//             }
+//             else if(output===4)
+//             {
+//                 output={"four":1}
+//             }
+//             else if(output===5)
+//             {
+//                 output={"five":1}
+//             }
+//             else if(output===6)
+//             {
+//                 output={"six":1}
+//             }
+//             else if(output===7)
+//             {
+//                 output={"seven":1}
+//             }
+//             else if(output===8)
+//             {
+//                 output={"eight":1}
+//             }
+//             else if(output===9)
+//             {
+//                 output={"nine":1}
+//             }
             
-            var formdata = new FormData();
-            formdata.append("input", JSON.stringify(newArray));
-            formdata.append("output", JSON.stringify(output));
-            var requestOptions = {
-                method: 'POST',
-                body: formdata,
-                redirect: 'follow'
-            };
+//             var formdata = new FormData();
+//             formdata.append("input", JSON.stringify(newArray));
+//             formdata.append("output", JSON.stringify(output));
+//             var requestOptions = {
+//                 method: 'POST',
+//                 body: formdata,
+//                 redirect: 'follow'
+//             };
 
-            fetch("http://localhost/handwrittenRegconition/addtrainingdata.php", requestOptions)
-                .then(response => response.text())
-                .then(result => {
-                    console.log(result);
-                    // make text block in 5s
-                    text.style.display = "block"
-                    setTimeout(() => {
-                        text.style.display = "none"
-                    }, 2000)
-                })
-                .catch(error => console.log('error', error));
-        }
-    }
-})
+//             fetch("http://localhost/handwrittenRegconition/addtrainingdata.php", requestOptions)
+//                 .then(response => response.text())
+//                 .then(result => {
+//                     console.log(result);
+//                     // make text block in 5s
+//                     text.style.display = "block"
+//                     setTimeout(() => {
+//                         text.style.display = "none"
+//                     }, 2000)
+//                 })
+//                 .catch(error => console.log('error', error));
+//         }
+//     }
+// })
 
 function getElementPosition(obj) {
     var curleft = 0, curtop = 0;
@@ -294,31 +294,33 @@ function getEventLocation(element, event) {
     }
 }
 
-async function getTrainingData() {
-    let trainingData
+// async function getTrainingData() {
+//     let trainingData
 
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
+//     var requestOptions = {
+//         method: 'GET',
+//         redirect: 'follow'
+//     };
 
-    await fetch("http://localhost/handwrittenRegconition/gettrainingdata.php", requestOptions)
-        .then(response => { return response.text(); })
-        .then(result => { trainingData = JSON.parse(result); })
-        .catch(error => console.log('error', error));
-    // // json.parse all input and output
-    for (let i = 0; i < trainingData.length; i++) {
-        trainingData[i].input = JSON.parse(trainingData[i].input)
-        trainingData[i].output = JSON.parse(trainingData[i].output)
-    }
-    console.log((trainingData))
-    return trainingData
+//     await fetch("http://localhost/handwrittenRegconition/gettrainingdata.php", requestOptions)
+//         .then(response => { return response.text(); })
+//         .then(result => { trainingData = JSON.parse(result); })
+//         .catch(error => console.log('error', error));
+//     // // json.parse all input and output
+//     for (let i = 0; i < trainingData.length; i++) {
+//         trainingData[i].input = JSON.parse(trainingData[i].input)
+//         trainingData[i].output = JSON.parse(trainingData[i].output)
+//     }
+//     return trainingData
 
 
-}
+// }
 
 ////////////////////////////////////////////////////////////// for brain.js
 // const brain = require("brain.js");
+// import brain from 'brain.js';
+// import fetch from 'node-fetch'
+// import fs from 'fs'
 // const config = {
 //     hiddenLayers: [30], // array of ints for the sizes of the hidden layers in the network
 // };
@@ -326,48 +328,54 @@ async function getTrainingData() {
 // async function allTheWork() {
 //     let trainingData = await getTrainingData()
 //     await net.train(trainingData,{iterations:1000})
-//     const networkState = JSON.stringify(net);
-//     // add the network state to database addtrainingdata.php
-//                 var formdata = new FormData();
-//                 formdata.append("network", networkState);
+    // const networkState = JSON.stringify(net);
+    // add the network state to database addtrainingdata.php
+                // var formdata = new FormData();
+                // formdata.append("network", networkState);
 
-//                 var requestOptions = {
-//                     method: 'POST',
-//                     body: formdata,
-//                     redirect: 'follow'
-//                 };
+                // var requestOptions = {
+                //     method: 'POST',
+                //     body: formdata,
+                //     redirect: 'follow'
+                // };
 
-//                 fetch("http://localhost/handwrittenRegconition/addnetwork.php", requestOptions)
-//                     .then(response => response.text())
-//                     .then(result => {console.log(result);
-//                         let numberRight = 0;
-//                         for(let i = 0; i < trainingData.length; i++){
-//                             let output = net.run(trainingData[i].input);
-//                             let keys = Object.keys(output);
-//                             let values = Object.values(output);
-//                             let max = Math.max(...values);
-//                             let index = values.indexOf(max);
-//                             let key = keys[index];
-//                             if(key === Object.keys(trainingData[i].output)[0]){
-//                                 numberRight++;
-//                             }
-//                         }
-//                         console.log(`${numberRight}/${trainingData.length}`);
-//                     })
-//                     .catch(error => console.log('error', error));
+                // fetch("http://localhost/handwrittenRegconition/addnetwork.php", requestOptions)
+                //     .then(response => response.text())
+                //     .then(result => {console.log(result);
+                        // let numberRight = 0;
+                        // for(let i = 0; i < trainingData.length; i++){
+                        //     let output = net.run(trainingData[i].input);
+                        //     let keys = Object.keys(output);
+                        //     let values = Object.values(output);
+                        //     let max = Math.max(...values);
+                        //     let index = values.indexOf(max);
+                        //     let key = keys[index];
+                        //     if(key === Object.keys(trainingData[i].output)[0]){
+                        //         numberRight++;
+                        //     }
+                        // }
+                        // console.log(`${numberRight}/${trainingData.length}`);
+
+                    // })
+                    // .catch(error => console.log('error', error));
 
 // }
 // allTheWork()
 ///////////////////////////////////////////// load and run
-// const brain = require("brain.js");
-// const config = {
-//     binaryThresh: 0.5,
-//     hiddenLayers: [30], // array of ints for the sizes of the hidden layers in the network
-//     activation: 'sigmoid', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
-//     leakyReluAlpha: 0.01, // supported for activation type 'leaky-relu',
-//     learningRate: 0.01, // global learning rate, useful when training using streams
-// };
-// let trainedNet = new brain.NeuralNetwork(config);
+// import file json from network.json
+const network = require('./network.json');
+console.log(network)
+const brain = require("brain.js") ;
+const config = {
+    binaryThresh: 0.5,
+    hiddenLayers: [30], // array of ints for the sizes of the hidden layers in the network
+    activation: 'sigmoid', // supported activation types: ['sigmoid', 'relu', 'leaky-relu', 'tanh'],
+    leakyReluAlpha: 0.01, // supported for activation type 'leaky-relu',
+    learningRate: 0.01, // global learning rate, useful when training using streams
+};
+let trainedNet = new brain.NeuralNetwork(config);
+trainedNet.fromJSON(network);
+
 // // load from file
 // let data
 // var requestOptions = {
@@ -384,22 +392,22 @@ async function getTrainingData() {
 //     })
 //     .catch(error => console.log('error', error));
 
-// function handleCheck() {
-//     let newArray = []
-//     for (let i = 0; i < array.length; i++) {
-//         for (let j = 0; j < array[i].length; j++) {
-//             newArray.push(array[i][j])
-//         }
-//     }
-//     let output = trainedNet.run(newArray);
-//     let keys = Object.keys(output);
-//     let values = Object.values(output);
-//     let max = Math.max(...values);
-//     let index = values.indexOf(max);
-//     let key = keys[index];
-//     alert(`Minh Phat doan so la: "${key}`)
-// }
-// checkButton.addEventListener("click", handleCheck)
+function handleCheck() {
+    let newArray = []
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < array[i].length; j++) {
+            newArray.push(array[i][j])
+        }
+    }
+    let output = trainedNet.run(newArray);
+    let keys = Object.keys(output);
+    let values = Object.values(output);
+    let max = Math.max(...values);
+    let index = values.indexOf(max);
+    let key = keys[index];
+    alert(`Minh Phat doan so la: ${key}`)
+}
+checkButton.addEventListener("click", handleCheck)
 
 
 // // ///////////////////////////////////////////////////////////////////// basic neural network coded by myself
