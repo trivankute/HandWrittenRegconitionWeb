@@ -69,122 +69,151 @@ else {
         canvas.removeEventListener('mousemove', handleDrawing)
     })
 }
-// function findMinTop(arr2d) {
-//     for (let i = 0; i < arr2d.length; i++) {
-//         for (let j = 0; j < arr2d[i].length; j++) {
-//             if (arr2d[i][j] === 1) {
-//                 return i
-//             }
-//         }
-//     }
-// }
-// function findMinBottom(arr2d) {
-//     for (let i = 0; i < arr2d.length; i++) {
-//         for (let j = 0; j < arr2d[i].length; j++) {
-//             if (arr2d[arr2d.length - 1 - i][j] === 1) {
-//                 return i
-//             }
-//         }
-//     }
-// }
-// function findMinLeft(arr2d) {
-//     for (let i = 0; i < arr2d.length; i++) {
-//         for (let j = 0; j < arr2d[i].length; j++) {
-//             if (arr2d[j][i] === 1) {
-//                 return i
-//             }
-//         }
-//     }
-// }
-// function findMinRight(arr2d) {
-//     for (let i = arr2d.length - 1; i >= 0; i--) {
-//         for (let j = 0; j < arr2d[i].length; j++) {
-//             if (arr2d[j][i] === 1) {
-//                 return 19 - i
-//             }
-//         }
-//     }
-// }
-// function moveArr2dLeft(arr2d) {
-//     for (let i = 0; i < arr2d.length; i++) {
-//         for (let j = 0; j < arr2d[i].length; j++) {
-//             if (j === arr2d[i].length - 1) {
-//                 arr2d[i][j] = 0
-//             }
-//             else {
-//                 arr2d[i][j] = arr2d[i][j + 1]
-//             }
-//         }
-//     }
-// }
-// function moveArr2dRight(arr2d) {
-//     for (let i = 0; i < arr2d.length; i++) {
-//         for (let j = arr2d[i].length - 1; j >= 0; j--) {
-//             if (j === 0) {
-//                 arr2d[i][j] = 0
-//             }
-//             else {
-//                 arr2d[i][j] = arr2d[i][j - 1]
-//             }
-//         }
-//     }
-// }
-// function moveArr2dUp(arr2d) {
-//     for (let i = 0; i < arr2d.length; i++) {
-//         for (let j = 0; j < arr2d[i].length; j++) {
-//             if (i === arr2d.length - 1) {
-//                 arr2d[i][j] = 0
-//             }
-//             else {
-//                 arr2d[i][j] = arr2d[i + 1][j]
-//             }
-//         }
-//     }
-// }
-// function moveArr2dDown(arr2d) {
-//     for (let i = arr2d.length - 1; i >= 0; i--) {
-//         for (let j = 0; j < arr2d[i].length; j++) {
-//             if (i === 0) {
-//                 arr2d[i][j] = 0
-//             }
-//             else {
-//                 arr2d[i][j] = arr2d[i - 1][j]
-//             }
-//         }
-//     }
-// }
 
-// // find list of variations
-// function findVariations(arr2d) {
-//     let variations = []
-//     // move arr2d to top until top=0
-//     while (findMinTop(arr2d) > 0) {
-//         moveArr2dUp(arr2d)
-//     }
-//     // move arr2d to left until left=0
-//     while (findMinLeft(arr2d) > 0) {
-//         moveArr2dLeft(arr2d)
-//     }
-//     // add arr2d to variations from up to down and left to right
-//     let arrInit = JSON.parse(JSON.stringify(arr2d))
-//     while (findMinRight(arrInit) >= 0) {
-//         arr2d = JSON.parse(JSON.stringify(arrInit))
-//         while (findMinBottom(arr2d) >= 0) {
-//             variations.push(JSON.parse(JSON.stringify(arr2d)))
-//             if (findMinBottom(arr2d) > 0)
-//                 moveArr2dDown(arr2d)
-//             else {
-//                 break;
-//             }
-//         }
-//         if (findMinRight(arrInit) > 0)
-//             moveArr2dRight(arrInit)
-//         else {
-//             break;
-//         }
-//     }
-//     return variations
-// }
+function getElementPosition(obj) {
+    var curleft = 0, curtop = 0;
+    if (obj.offsetParent) {
+        do {
+            curleft += obj.offsetLeft;
+            curtop += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+        return { x: curleft, y: curtop };
+    }
+    return undefined;
+}
+
+function getEventLocation(element, event) {
+    if (window.innerWidth < 440) {
+        var pos = getElementPosition(element);
+        return {
+            x: (event.touches[0].pageX - pos.x),
+            y: (event.touches[0].pageY - pos.y)
+        };
+    }
+    else {
+        var pos = getElementPosition(element);
+        return {
+            x: (event.pageX - pos.x),
+            y: (event.pageY - pos.y)
+        };
+    }
+}
+function findMinTop(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (arr2d[i][j] === 1) {
+                return i
+            }
+        }
+    }
+}
+function findMinBottom(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (arr2d[arr2d.length - 1 - i][j] === 1) {
+                return i
+            }
+        }
+    }
+}
+function findMinLeft(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (arr2d[j][i] === 1) {
+                return i
+            }
+        }
+    }
+}
+function findMinRight(arr2d) {
+    for (let i = arr2d.length - 1; i >= 0; i--) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (arr2d[j][i] === 1) {
+                return 19 - i
+            }
+        }
+    }
+}
+function moveArr2dLeft(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (j === arr2d[i].length - 1) {
+                arr2d[i][j] = 0
+            }
+            else {
+                arr2d[i][j] = arr2d[i][j + 1]
+            }
+        }
+    }
+}
+function moveArr2dRight(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = arr2d[i].length - 1; j >= 0; j--) {
+            if (j === 0) {
+                arr2d[i][j] = 0
+            }
+            else {
+                arr2d[i][j] = arr2d[i][j - 1]
+            }
+        }
+    }
+}
+function moveArr2dUp(arr2d) {
+    for (let i = 0; i < arr2d.length; i++) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (i === arr2d.length - 1) {
+                arr2d[i][j] = 0
+            }
+            else {
+                arr2d[i][j] = arr2d[i + 1][j]
+            }
+        }
+    }
+}
+function moveArr2dDown(arr2d) {
+    for (let i = arr2d.length - 1; i >= 0; i--) {
+        for (let j = 0; j < arr2d[i].length; j++) {
+            if (i === 0) {
+                arr2d[i][j] = 0
+            }
+            else {
+                arr2d[i][j] = arr2d[i - 1][j]
+            }
+        }
+    }
+}
+
+// find list of variations
+function findVariations(arr2d) {
+    let variations = []
+    // move arr2d to top until top=0
+    while (findMinTop(arr2d) > 0) {
+        moveArr2dUp(arr2d)
+    }
+    // move arr2d to left until left=0
+    while (findMinLeft(arr2d) > 0) {
+        moveArr2dLeft(arr2d)
+    }
+    // add arr2d to variations from up to down and left to right
+    let arrInit = JSON.parse(JSON.stringify(arr2d))
+    while (findMinRight(arrInit) >= 0) {
+        arr2d = JSON.parse(JSON.stringify(arrInit))
+        while (findMinBottom(arr2d) >= 0) {
+            variations.push(JSON.parse(JSON.stringify(arr2d)))
+            if (findMinBottom(arr2d) > 0)
+                moveArr2dDown(arr2d)
+            else {
+                break;
+            }
+        }
+        if (findMinRight(arrInit) > 0)
+            moveArr2dRight(arrInit)
+        else {
+            break;
+        }
+    }
+    return variations
+}
 // addButton.addEventListener('click', () => {
 //     // propmt
 //     let output = prompt("Enter the value of the drawing correctly, please huhu")
@@ -265,56 +294,28 @@ else {
 //     }
 // })
 
-function getElementPosition(obj) {
-    var curleft = 0, curtop = 0;
-    if (obj.offsetParent) {
-        do {
-            curleft += obj.offsetLeft;
-            curtop += obj.offsetTop;
-        } while (obj = obj.offsetParent);
-        return { x: curleft, y: curtop };
+
+async function getTrainingData() {
+    let trainingData
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    await fetch("http://localhost/handwrittenRegconition/gettrainingdata.php", requestOptions)
+        .then(response => { return response.text(); })
+        .then(result => { trainingData = JSON.parse(result); })
+        .catch(error => console.log('error', error));
+    // // json.parse all input and output
+    for (let i = 0; i < trainingData.length; i++) {
+        trainingData[i].input = JSON.parse(trainingData[i].input)
+        trainingData[i].output = JSON.parse(trainingData[i].output)
     }
-    return undefined;
+    return trainingData
+
+
 }
-
-function getEventLocation(element, event) {
-    if (window.innerWidth < 440) {
-        var pos = getElementPosition(element);
-        return {
-            x: (event.touches[0].pageX - pos.x),
-            y: (event.touches[0].pageY - pos.y)
-        };
-    }
-    else {
-        var pos = getElementPosition(element);
-        return {
-            x: (event.pageX - pos.x),
-            y: (event.pageY - pos.y)
-        };
-    }
-}
-
-// async function getTrainingData() {
-//     let trainingData
-
-//     var requestOptions = {
-//         method: 'GET',
-//         redirect: 'follow'
-//     };
-
-//     await fetch("http://localhost/handwrittenRegconition/gettrainingdata.php", requestOptions)
-//         .then(response => { return response.text(); })
-//         .then(result => { trainingData = JSON.parse(result); })
-//         .catch(error => console.log('error', error));
-//     // // json.parse all input and output
-//     for (let i = 0; i < trainingData.length; i++) {
-//         trainingData[i].input = JSON.parse(trainingData[i].input)
-//         trainingData[i].output = JSON.parse(trainingData[i].output)
-//     }
-//     return trainingData
-
-
-// }
 
 ////////////////////////////////////////////////////////////// for brain.js
 // const brain = require("brain.js");
@@ -325,46 +326,59 @@ function getEventLocation(element, event) {
 //     hiddenLayers: [30], // array of ints for the sizes of the hidden layers in the network
 // };
 // const net = new brain.NeuralNetwork(config);
+// // take out from old to keep training
+// let network = fs.readFileSync('network.json', 'utf8');
+// net.fromJSON(JSON.parse(network));
+
 // async function allTheWork() {
 //     let trainingData = await getTrainingData()
-//     await net.train(trainingData,{iterations:1000})
-    // const networkState = JSON.stringify(net);
-    // add the network state to database addtrainingdata.php
-                // var formdata = new FormData();
-                // formdata.append("network", networkState);
+//     // super training 10 times longer than your granfather old, best art 10657/10827
+//     // for(let i = 0; i < 10; i++)
+//     // {
+//     //     await net.train(trainingData)
+//     // }
+//     // const networkState = JSON.stringify(net);
+//     // add to network.json
+//     fs.writeFile('network.json', networkState, function (err) {
+//         if (err) throw err;
+//         console.log('Saved!');
+//     });
+//     // add the network state to database addtrainingdata.php
+//                 // var formdata = new FormData();
+//                 // formdata.append("network", networkState);
 
-                // var requestOptions = {
-                //     method: 'POST',
-                //     body: formdata,
-                //     redirect: 'follow'
-                // };
+//                 // var requestOptions = {
+//                 //     method: 'POST',
+//                 //     body: formdata,
+//                 //     redirect: 'follow'
+//                 // };
 
-                // fetch("http://localhost/handwrittenRegconition/addnetwork.php", requestOptions)
-                //     .then(response => response.text())
-                //     .then(result => {console.log(result);
-                        // let numberRight = 0;
-                        // for(let i = 0; i < trainingData.length; i++){
-                        //     let output = net.run(trainingData[i].input);
-                        //     let keys = Object.keys(output);
-                        //     let values = Object.values(output);
-                        //     let max = Math.max(...values);
-                        //     let index = values.indexOf(max);
-                        //     let key = keys[index];
-                        //     if(key === Object.keys(trainingData[i].output)[0]){
-                        //         numberRight++;
-                        //     }
-                        // }
-                        // console.log(`${numberRight}/${trainingData.length}`);
+//                 // fetch("http://localhost/handwrittenRegconition/addnetwork.php", requestOptions)
+//                 //     .then(response => response.text())
+//                 //     .then(result => {console.log(result);
+//                         let numberRight = 0;
+//                         for(let i = 0; i < trainingData.length; i++){
+//                             let output = net.run(trainingData[i].input);
+//                             let keys = Object.keys(output);
+//                             let values = Object.values(output);
+//                             let max = Math.max(...values);
+//                             let index = values.indexOf(max);
+//                             let key = keys[index];
+//                             if(key === Object.keys(trainingData[i].output)[0]){
+//                                 numberRight++;
+//                             }
+//                         }
+//                         console.log(`${numberRight}/${trainingData.length}`);
 
-                    // })
-                    // .catch(error => console.log('error', error));
+// //                     })
+// //                     .catch(error => console.log('error', error));
 
 // }
 // allTheWork()
 ///////////////////////////////////////////// load and run
 // import file json from network.json
 const network = require('./network.json');
-console.log(network)
+// console.log(network)
 const brain = require("brain.js") ;
 const config = {
     binaryThresh: 0.5,
@@ -405,7 +419,8 @@ function handleCheck() {
     let max = Math.max(...values);
     let index = values.indexOf(max);
     let key = keys[index];
-    alert(`Minh Phat doan so la: ${key}`)
+    let value = values[index];
+    alert(`Minh Phat doan so la: ${key} voi xac suat la ${(value*100).toFixed(2)}%`)
 }
 checkButton.addEventListener("click", handleCheck)
 
