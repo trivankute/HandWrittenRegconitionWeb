@@ -17,8 +17,8 @@ $conn = $db->connect();
     <section class="vh-100">
         <div class="container h-100 d-flex flex-column align-items-center justify-content-center">
             <h4 id="text" style="color:green; display:none;">Add successfully</h4>
-            <h4 id="text" style="color:blue;">Welcome to TriVan's HandWritten Number Regconition project</h4>
-            <h4 id="text" style="color:green;">You must be patient, only 10000 training datas</h4>
+            <h4 id="text" style="color:blue;">Welcome to TriVan Project version 3.0</h4>
+            <h4 id="text" style="color:green;">Write a single number for Minh Phat AI to predict, You must be patient, only 10000 training datas</h4>
             <h4 id="text" style="">Try it few times if its not correct</h4>
             <canvas id="canvas"></canvas>
             <div class="d-flex mt-2 align-items-center justify-content-center">
