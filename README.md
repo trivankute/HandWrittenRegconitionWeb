@@ -1,6 +1,8 @@
 ﻿# HandWrittenRegconitionWeb
  version 1.0
  
+ Responsive
+ 
  Use the neural network coded by myself
  
  Success ratio is just about 20-30%
