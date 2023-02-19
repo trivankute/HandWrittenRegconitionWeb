@@ -420,7 +420,7 @@ function handleCheck() {
     let index = values.indexOf(max);
     let key = keys[index];
     let value = values[index];
-    alert(`Minh Phat doan so la: ${key} voi xac suat la ${(value*100).toFixed(2)}%`)
+    alert(`AI Minh Phat doan so la: ${key} voi xac suat la ${(value*100).toFixed(2)}%`)
 }
 checkButton.addEventListener("click", handleCheck)
 
