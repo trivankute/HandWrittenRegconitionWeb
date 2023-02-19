@@ -1,6 +1,8 @@
 {
   "type": "module",
   "dependencies": {
-    "brain.js": "^1.6.1"
+    "brain.js": "^1.6.1",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^3.3.0"
   }
 }
